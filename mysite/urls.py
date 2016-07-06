@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^time/$',current_Datetimereq),
     url(r'^another_time_page/$',current_Datetimereq),
     url(r'^time/plus/(\d{1,2})/$', hours_ahead), # ^ is called carret sign!
-    url(r'^search-form/$' , views.search_form),
-    url(r'^search/$', views.search)
+    #url(r'^search-form/$' , views.search_form),
+    url(r'^search/$', views.search),
 ]

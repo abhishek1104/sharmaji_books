@@ -3,7 +3,17 @@
     <title>Form Search</title>
 </head>
 <body>
-    <form action="/search/" method="/get/">
+    {% if error %}
+    <ui>{% for er in error %}
+        <ul>{{ er }}</ul>
+        {% endfor %}
+    </ui>
+    {% endif %}
+
+        {%comment %}
+        <form action="/search/" method="/get/"> 
+        {% endcomment %}
+        <form action="" method="/get/"> 
         <input type="text" name="q">
         <inout type="submit" value="Search">
     </form>
