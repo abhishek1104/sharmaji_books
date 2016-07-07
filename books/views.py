@@ -51,14 +51,16 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             cd=form.cleaned_data
-            send_mail(cd['subject'],cd['message'],cd.get('email', 'noreply@example.com'),
-                ['abhishek1104@gmail.com'],)
-            return HttpResponseRedirect(reverse('mysite:thanksbaboo')) #reverse for url redirect! #app_name:name(urlname)
-            #Note here it is <namespace i.e. name under main settings url>:<name under books i.e. app url>
-    else :
-        form= ContactForm()
+            send_mail(cd['subject'],cd['message'],cd.get('email','noreply@example.com'),
+                ['abhishek1104@gmail.com'],
+            )
 
-    return render(request,'books/contact_form.html',{'form':form})
+            return HttpResponseRedirect(reverse('mysite:thanksbaboo')) #reverse for url redirect! #app_name:name(urlname)
+            #Note here it is <namespace i.e. name under main settings url>:<name under books.url i.e. for desired url>
+    else :
+        form= ContactForm(initial={'subject':'I love my site','email':'abhishek.sharma@pulpstrategy.com'})
+
+    return render(request,'books/contact_form_custom.html',{'form':form})
 
 
 def thanksji(request):
