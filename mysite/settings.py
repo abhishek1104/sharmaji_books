@@ -11,10 +11,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os,sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -115,3 +114,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+sys.path.append("E:\\Abhishek_Sharma\\Extra_settings")
+
+from emailsettings import sendemailsetting
+obj = sendemailsetting()
+
+EMAIL_USE_TLS = False #obj.EMAIL['default']['EMAIL_USE_TLS'] (True Recommended)
+EMAIL_HOST = obj.EMAIL['default']['EMAIL_HOST']
+EMAIL_PORT = obj.EMAIL['default']['EMAIL_PORT']
+EMAIL_HOST_USER = obj.EMAIL['default']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = obj.EMAIL['default']['EMAIL_HOST_PASSWORD']

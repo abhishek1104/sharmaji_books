@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from .views import hello,current_Datetimereq,hours_ahead
-from books import views
+#from books import views
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -25,5 +26,8 @@ urlpatterns = [
     url(r'^another_time_page/$',current_Datetimereq),
     url(r'^time/plus/(\d{1,2})/$', hours_ahead), # ^ is called carret sign!
     #url(r'^search-form/$' , views.search_form),
-    url(r'^search/$', views.search),
+    #url(r'^search/$', views.search),s
+    #url(r'^contact/$', views.contact),
+    url(r'^', include('books.urls',namespace="mysite")),
+
 ]
