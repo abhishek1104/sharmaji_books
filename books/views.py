@@ -55,7 +55,7 @@ def contact(request):
                 ['abhishek1104@gmail.com'],
             )
 
-            return HttpResponseRedirect(reverse('mysite:thanksbaboo')) #reverse for url redirect! #app_name:name(urlname)
+            return HttpResponseRedirect(reverse('myapp:thanksbaboo')) #reverse for url redirect! #app_name:name(urlname)
             #Note here it is <namespace i.e. name under main settings url>:<name under books.url i.e. for desired url>
     else :
         form= ContactForm(initial={'subject':'I love my site','email':'abhishek.sharma@pulpstrategy.com'})

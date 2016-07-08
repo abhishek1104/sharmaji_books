@@ -16,7 +16,7 @@ def current_Datetimereq(request):
     return render(request,'current_Datetime.html',{'current_date':now})
 
 
-def hours_ahead(request,offset):
+def hours_ahead(request,offset=1):
     try:
         offset = int(offset) #offset would be a unicode string from url.We need to do it  for tn variable value assignment!
     except ValueError : 
