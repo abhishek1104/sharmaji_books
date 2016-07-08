@@ -15,19 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from .views import hello,current_Datetimereq,hours_ahead
+from . import views
+from django.conf import settings #For importing settings!
 #from books import views
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^hello/$',hello),
-    url(r'^time/$',current_Datetimereq),
-    url(r'^another_time_page/$',current_Datetimereq),
-    url(r'^time/plus/(\d{1,2})/$', hours_ahead), # ^ is called carret sign!
+    url(r'^hello/$',views.hello),
+    url(r'^time/$',views.current_Datetimereq),
+    url(r'^another_time_page/$',views.current_Datetimereq),
+    url(r'^time/plus/(-?\d{1,2})/$', views.hours_ahead), #^ is called carret sign.-?means minus is optional.Allows -ve no.s too
     #url(r'^search-form/$' , views.search_form),
     #url(r'^search/$', views.search),s
     #url(r'^contact/$', views.contact),
     url(r'^', include('books.urls',namespace="mysite")),
 
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += [url(r'^timestamp/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$' ,views.timevalue),]

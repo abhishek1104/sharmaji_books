@@ -29,3 +29,15 @@ def hours_ahead(request,offset):
     '''
     return render(request,'hours_ahead.html',{'hours_offset':offset,'future_time':tn})
 
+
+def timevalue(request,year,month):
+    error=[]
+    try:
+        year=int(year)
+        month=int(month)
+        if month >12 or month==0:
+            error.append("""Invalid Month Entry.Enter between 0 and 12""")
+    except ValueError:
+        raise Http404()
+
+    return render(request,'timevalue.html',{'year':year,'month':month,'error':error})
