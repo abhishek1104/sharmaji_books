@@ -29,12 +29,12 @@ urlpatterns = [
     url(r'^time/',include([
         url(r'^$' ,views.current_Datetimereq,name="mysite_time"),
         url(r'^plus/(-?\d{1,2})/$' ,views.hours_ahead,name="mysite_hours_ahead"),
-        url(r'^plus10/$' ,views.hours_ahead,{'offset':10},name="mysite_plus3"), #Pass value from view taken{'offset':10}!
+        url(r'^plus10/$' ,views.hours_ahead,{'offset':10},name="mysite_plus3"), #Pass value for view taken{'offset':10}!
         url(r'^plus_default/$' ,views.hours_ahead,name="mysite_plus_default"), #Default offset under view taken
-        ])),
+        ])), #Only time/ upto url would be shown in debug mode,not other urls the part of include within it !
     url(r'^another_time_page/$',views.current_Datetimereq,name="mysite_another_time"),
     #url(r'^search-form/$' , views.search_form),
-    #url(r'^search/$', views.search),s
+    #url(r'^search/$', views.search),
     #url(r'^contact/$', views.contact),
     url(r'^', include('books.urls',namespace="myapp")),
 ]

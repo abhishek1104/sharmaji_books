@@ -63,6 +63,8 @@ def contact(request):
     return render(request,'books/contact_form_custom.html',{'form':form})
 
 
-def thanksji(request):
-    return render(request,'books/thanks.html',{})
+def thanksji(request,waooo='000waooo00uuuu'):
+    return render(request,'books/thanks.html',{'somevariable':waooo})
+
+
 

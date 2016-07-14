@@ -1,8 +1,14 @@
+{% load review_extras %}
 <html>
 <head>
     <title>Thank You Page</title>
 <body>
     <p>Thanks for filling the form.</p>
     The details has been succesfully filled and emailed.
+    {{somevariable|cutwaoo:"0"|upper }} <br/>
+    {% get_current_time "%Y-%m-%d %I:%M:%S.%f %p" as the_time %}
+    The time is {{the_time}}
+
+
 </body>
 </html>

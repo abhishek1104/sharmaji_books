@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'books',
+    'alltemplate',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')], #As not yet created a django app!
-        'APP_DIRS': True,
+        'APP_DIRS': True, #Loads templates from Django apps on the filesystem
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -115,8 +116,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-sys.path.append("E:\\Abhishek_Sharma\\Extra_settings")
-
+#sys.path.append("E:\\Abhishek_Sharma\\Extra_settings")
+sys.path.append("E:/Abhishek_Sharma/Extra_settings") #forward slash use recommended even on windows system with django!
 from emailsettings import sendemailsetting
 obj = sendemailsetting()
 
