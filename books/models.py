@@ -29,14 +29,58 @@ class Author(models.Model):
 
 class BookManager(models.Manager):
     def title_count(self,keyword):
-        return self.filter(title__icontains=keyword).count()        
+        return self.filter(title__icontains=keyword).count()  
+
+
+class KapilBookManager(models.Manager):
+    def get_queryset(self):
+        return super(KapilBookManager,self).get_queryset().filter(authors__first_name__icontains='kapil')      
 
 class Book(models.Model):
     title = models.CharField(max_length=30)
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher)
     publication_date = models.DateField(blank=True, null=True,auto_now_add=True) #auto_now_add-- only on creation!
-    objects = BookManager() #Remeber () after BookManager!Otherwise it will not work!
+    #objects = BookManager() #Remeber () after BookManager!Otherwise it will not work!
+    objects=BookManager() # Use objects=models.Manager() otherwise!
+    kapil_objects=KapilBookManager()
 
     def __str__(self):
         return self.title
+
+
+class MaleManager(models.Manager):
+    def get_queryset(self):
+        return super(MaleManager,self).get_queryset().filter(sex='M')
+
+class FemaleManager(models.Manager):
+    def get_queryset(self):
+        return super(FemaleManager,self).get_queryset().filter(sex='F')
+
+class Person(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    sex = models.CharField(max_length=1,choices=(('M','Male'),('F','Female'),))
+    birth_date = models.DateField()
+    people = models.Manager()
+    men = MaleManager()
+    women = FemaleManager()
+
+    '''
+    def __str__(self):
+        return u'{0} {1} is the person'.format(self.first_name,self.last_name,)
+    '''
+    def when_born(self):
+        import datetime
+
+        if self.birth_date <= datetime.date(1990,01,01):
+            return "Older"
+        else:
+            return "Younger"
+
+    def _get_full_name(self):
+        return u'{0} {1} is the person'.format(self.first_name,self.last_name,)
+
+
+    full_name = property(_get_full_name)
+
