@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h2>Publishers</h2>
+<ul>
+    {{who_publisher}}
+
+</ul>
+
+{% if list_of_books %}
+<i>Book list assicoated is as following</i>
+<ul>
+    {% for book in list_of_books %}
+    <li>{{book.title}}</li>
+    
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import Http404,HttpResponse,HttpResponseRedirect
-from .models import Book
+from .models import Book,Publisher,Author
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse #reverse to be used with HttpResponse !
-
+from django.views.generic import ListView,DetailView
+from django.utils import timezone
 
 # Create your views here.
 
@@ -67,4 +68,57 @@ def thanksji(request,waooo='000waooo00uuuu'):
     return render(request,'books/thanks.html',{'somevariable':waooo})
 
 
+'''
+class PublisherList(ListView):
+    model=Publisher
+'''
 
+class PublisherList(ListView):
+    model=Publisher
+
+    def get_context_data(self,**kargs):
+        context=super(PublisherList,self).get_context_data(**kargs)
+        context['book_list'] = Book.objects.all()
+
+        return context
+
+class PublisherList1(ListView):
+    context_object_name = 'publisher'
+    queryset = Publisher.objects.all()
+    template_name = 'books/publisher_list.html'
+
+    '''def get_queryset(self):
+        self.publisher = get_object_or_404(Publisher, name=self.args[0])
+        return Book.objects.filter(publisher=self.publisher)'''
+
+
+class PublisherList2(ListView):
+
+    template_name = 'books/publisher_list2.html'
+    context_object_name = 'list_of_books'
+
+    def get_queryset(self):
+        self.publisher = get_object_or_404(Publisher, name=self.args[0])
+        return Book.objects.filter(publisher=self.publisher) #It returns context_object_name by default would be book_list if not mentioned!
+
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PublisherList2, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['who_publisher'] = self.publisher        
+        return context
+
+
+class AuthorDetailView(DetailView):
+    queryset=Author.objects.all() 
+
+    def get_object(self):
+
+        #call superclass
+        object=super(AuthorDetailView,self).get_object()
+        #Record the last accessed time
+        object.last_accessed = timezone.now()
+        object.save()
+        #Return the object
+        return object
